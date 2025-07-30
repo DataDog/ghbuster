@@ -1,0 +1,6 @@
+.idea
+lib/
+**/__pycache__
+*.sqlite
+TODO.txt
+malicious_repos.txt

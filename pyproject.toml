@@ -1,0 +1,11 @@
+[project]
+name = "github-repo-scanner"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.10"
+dependencies = [
+    "networkx[default]>=3.4.2",
+    "pygithub>=2.6.1",
+    "pyvis>=0.3.2",
+    "requests-cache>=1.2.1",
+]
