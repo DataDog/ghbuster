@@ -36,11 +36,11 @@ class RepoStarredBySuspiciousUsers(MetadataHeuristic):
             return HeuristicRunResult.PASSED()
         elif stargazer_count > self.MAX_STARGAZERS:
             logger.info("Repository %s has too many stargazers (%d) to analyze, ignoring it.",
-                         target_spec.repo_full_name(), all_stargazers.totalCount)
+                        target_spec.repo_full_name(), all_stargazers.totalCount)
             return HeuristicRunResult.PASSED()
 
         logger.info("Analyzing %d stargazers for repository %s", stargazer_count,
-                     target_spec.repo_full_name())
+                    target_spec.repo_full_name())
         suspicious_stargazers = {}  # mapping from username to the list of triggered heuristics for this user
         for stargazer in all_stargazers:
             user = github_client.get_user(login=stargazer.login)
@@ -49,7 +49,8 @@ class RepoStarredBySuspiciousUsers(MetadataHeuristic):
                 continue
 
             user_heuristics = self.get_heuristics_to_run_for_user(user)
-            logger.info("Analyzing if stargazer %s looks suspicious by running %d heuristics", user.login, len(user_heuristics))
+            logger.info("Analyzing if stargazer %s looks suspicious by running %d heuristics", user.login,
+                        len(user_heuristics))
             for heuristic in user_heuristics:
                 result = heuristic.run(github_client, TargetSpec(TargetType.USER, username=user.login))
                 if result.triggered:
@@ -79,4 +80,3 @@ class RepoStarredBySuspiciousUsers(MetadataHeuristic):
             heuristics.add(UserHasForksFromTakenDownRepos(max_forks_to_analyze=20))
 
         return heuristics
-

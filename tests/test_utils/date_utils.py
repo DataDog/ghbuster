@@ -1,6 +1,7 @@
 import datetime
 import random
 
+
 def random_date() -> datetime.datetime:
     year = random.randint(2000, 2025)
     month = random.randint(1, 12)

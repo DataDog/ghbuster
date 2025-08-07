@@ -53,7 +53,8 @@ class UserHasLowCommunityActivity(MetadataHeuristic):
 
         except github.GithubException as e:
             if e.status == 422 and e.message == 'Validation Failed':
-                logger.info("User %s has their profile activity in private mode, unable to list their PRs and issues", user.login)
+                logger.info("User %s has their profile activity in private mode, unable to list their PRs and issues",
+                            user.login)
             else:
                 raise e
 

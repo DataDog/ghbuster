@@ -19,7 +19,8 @@ def _cli() -> ArgumentParser:
                         help="GitHub token for authentication. If not provided, the GITHUB_TOKEN environment variable is used",
                         required=False, default=os.environ.get("GITHUB_TOKEN"))
     parser.add_argument("--debug", action="store_true", help="Enable debug logging", dest="enable_debug", default=False)
-    parser.add_argument("--include", nargs="+", help="Heuristics to include (any other heuristic will not be ran)", default=[])
+    parser.add_argument("--include", nargs="+", help="Heuristics to include (any other heuristic will not be ran)",
+                        default=[])
     parser.add_argument("--exclude", nargs="+", help="Heuristics to exclude", default=[])
     parser.add_argument("--force", action="store_true", default=False)
     return parser

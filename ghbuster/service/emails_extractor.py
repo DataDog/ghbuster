@@ -2,9 +2,9 @@ import functools
 import logging
 
 import github
-from github.Repository import Repository
 from github.Commit import Commit
 from github.NamedUser import NamedUser
+from github.Repository import Repository
 
 from .. import TargetSpec, TargetType
 
@@ -30,7 +30,8 @@ class EmailResult:
 
 class GitHubCommitEmailExtractor:
     def __init__(self, github_client: github.Github, target_spec: TargetSpec, include_forks: bool = False,
-                 include_emails_linked_to_other_users: bool = False, include_unlinked_emails: bool = True, max_commits_to_analyze_per_repo: int = 100):
+                 include_emails_linked_to_other_users: bool = False, include_unlinked_emails: bool = True,
+                 max_commits_to_analyze_per_repo: int = 100):
         self.github_client = github_client
         self.target_spec = target_spec
         self.include_forks = include_forks
@@ -102,7 +103,7 @@ class GitHubCommitEmailExtractor:
         # (like we'd see in the GitHub UI that the username is not clickable)
         try:
             self.github_client.get_user_by_id(author.id)
-            return False # no exception, the user exists
+            return False  # no exception, the user exists
         except github.GithubException as e:
             if e.status == 404:
                 return True

@@ -6,7 +6,8 @@ from .. import TargetType, TargetSpec
 
 
 class HeuristicRunResult:
-    def __init__(self, triggered: bool, additional_details: str = "", heuristic: 'MetadataHeuristic' = None, skipped:  bool = False):
+    def __init__(self, triggered: bool, additional_details: str = "", heuristic: 'MetadataHeuristic' = None,
+                 skipped: bool = False):
         self.triggered = triggered
         self.additional_details = additional_details
         self.heuristic = heuristic

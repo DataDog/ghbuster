@@ -1,10 +1,12 @@
 import dataclasses
+import datetime
+import logging
 from typing import Iterable
 
 import requests
-import datetime
-import logging
+
 logger = logging.getLogger(__name__)
+
 
 @dataclasses.dataclass
 class GitHubEvent:
@@ -49,4 +51,3 @@ class GitHubArchive:
             ))
 
         return result
-

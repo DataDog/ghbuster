@@ -35,4 +35,3 @@ class TestUserHasLowCommunityActivity(unittest.TestCase):
         gh.get_user.return_value = ghuser
         result = self.heuristic.run(gh, target_spec)
         self.assertFalse(result.triggered)
-

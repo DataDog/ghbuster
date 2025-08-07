@@ -471,7 +471,7 @@ wheels = [
 ]
 
 [[package]]
-name = "github-repo-scanner"
+name = "ghbuster"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

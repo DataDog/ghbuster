@@ -8,6 +8,7 @@ from .. import TargetType, TargetSpec
 
 logger = logging.getLogger(__name__)
 
+
 # e.g. https://github.com/mrrebrik3765
 class UserHasForksFromTakenDownRepos(MetadataHeuristic):
 
@@ -35,7 +36,8 @@ class UserHasForksFromTakenDownRepos(MetadataHeuristic):
         for repo in user_repos:
             if repo.fork:
                 if num_forks_analyzed >= self.max_forks_to_analyze:
-                    logger.debug("Reached maximum number of forks to analyze (%d), stopping further checks", self.max_forks_to_analyze)
+                    logger.debug("Reached maximum number of forks to analyze (%d), stopping further checks",
+                                 self.max_forks_to_analyze)
                     break
                 num_forks_analyzed += 1
                 logger.debug("Analyzing forked repository %s owned by user %s", repo.full_name, target_spec.username)

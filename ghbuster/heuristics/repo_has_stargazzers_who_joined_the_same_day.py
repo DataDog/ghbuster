@@ -26,11 +26,13 @@ class RepoHasStargazersWhoJoinedOnTheSameDay(MetadataHeuristic):
         all_stargazers = repo.get_stargazers()
 
         if all_stargazers.totalCount < self.MIN_STARGAZERS:
-            logger.debug("Repository %s has too few stargazers (%d) to analyze.", target_spec.repo_full_name(), all_stargazers.totalCount)
+            logger.debug("Repository %s has too few stargazers (%d) to analyze.", target_spec.repo_full_name(),
+                         all_stargazers.totalCount)
             return HeuristicRunResult.PASSED()
 
         if all_stargazers.totalCount > self.MAX_STARGAZERS:
-            logger.debug("Repository %s has too many stargazers (%d) to analyze, limiting to %d.", target_spec.repo_full_name(), all_stargazers.totalCount, self.MAX_STARGAZERS)
+            logger.debug("Repository %s has too many stargazers (%d) to analyze, limiting to %d.",
+                         target_spec.repo_full_name(), all_stargazers.totalCount, self.MAX_STARGAZERS)
             all_stargazers = all_stargazers[:self.MAX_STARGAZERS]
 
         logger.info("Analyzing the creation date of %d stargazers", all_stargazers.totalCount)
@@ -40,7 +42,6 @@ class RepoHasStargazersWhoJoinedOnTheSameDay(MetadataHeuristic):
             if user_joined_day not in stargazers_by_join_day:
                 stargazers_by_join_day[user_joined_day] = 0
             stargazers_by_join_day[user_joined_day] += 1
-
 
         # Now compute the count for each join day
         for join_day in stargazers_by_join_day:

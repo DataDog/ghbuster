@@ -5,12 +5,11 @@ import github.Auth
 import requests_cache
 
 from ghbuster.heuristics import MetadataHeuristic, ALL_HEURISTICS, TargetType
+from ghbuster.heuristics import UserLooksLegit
 from .cli import CliArguments, parse_and_validate_args
 from .github_repo_scanner import GitHubScanner
-
 from .output_formatter import OutputFormatter
 
-from ghbuster.heuristics import UserLooksLegit
 
 def setup_logging(log_level: int):
     logging.basicConfig(level=log_level, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
@@ -20,6 +19,7 @@ def setup_logging(log_level: int):
 
 def setup_caching():
     requests_cache.install_cache('github_cache', expire_after=3600)
+
 
 def resolve_heuristics(included_heuristics: set[str], excluded_heuristics: set[str]) -> list[MetadataHeuristic]:
     heuristics = []
@@ -33,6 +33,7 @@ def resolve_heuristics(included_heuristics: set[str], excluded_heuristics: set[s
         else:
             heuristics.append(heuristic)
     return heuristics
+
 
 def main(args: CliArguments):
     setup_logging(args.log_level)
@@ -56,6 +57,7 @@ def main(args: CliArguments):
     output = OutputFormatter().format_results(args.target_spec, results)
     print(output)
 
+
 def cli_entrypoint():
     try:
         main(parse_and_validate_args(sys.argv[1:]))
@@ -63,6 +65,6 @@ def cli_entrypoint():
         print(e, file=sys.stderr)
         sys.exit(1)
 
+
 if __name__ == "__main__":
     cli_entrypoint()
-

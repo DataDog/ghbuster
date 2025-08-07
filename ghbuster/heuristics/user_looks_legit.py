@@ -8,10 +8,10 @@ from .. import TargetType, TargetSpec
 
 logger = logging.getLogger(__name__)
 
-
 """
 UserLooksLegit is used as a strong signal that a user is authentic, to avoid running extraneous heuristics on them.
 """
+
 
 class UserLooksLegit(MetadataHeuristic):
     def id(self) -> str:
@@ -31,13 +31,13 @@ class UserLooksLegit(MetadataHeuristic):
 
         joined_days_ago = (datetime.now(timezone.utc) - user.created_at).days
         likely_legit = (
-            user.public_repos > 10 and
-            joined_days_ago > 365 and
-            user.followers > 10 and
-            user.following > 10 and
-            user.name is not None and
-            (user.company is not None or user.location is not None or user.bio is not None) and
-            user.public_repos > 5
+                user.public_repos > 10 and
+                joined_days_ago > 365 and
+                user.followers > 10 and
+                user.following > 10 and
+                user.name is not None and
+                (user.company is not None or user.location is not None or user.bio is not None) and
+                user.public_repos > 5
         )
         additional_details = (
             "\n"

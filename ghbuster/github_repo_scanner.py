@@ -38,7 +38,7 @@ class GitHubScanner:
         else:
             raise ValueError("Unsupported target type")
 
-    def scan(self) ->list[HeuristicRunResult]:
+    def scan(self) -> list[HeuristicRunResult]:
         results = []
         for heuristic in self.heuristics:
             if heuristic.target_type() != self.target_spec.target_type:

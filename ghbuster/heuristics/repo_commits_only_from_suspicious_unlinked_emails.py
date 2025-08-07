@@ -1,4 +1,3 @@
-import github
 from github.NamedUser import NamedUser
 
 from .user_has_forks_from_taken_down_repos import *
@@ -64,7 +63,7 @@ class RepoCommitsOnlyFromSuspiciousUnlinkedEmails(MetadataHeuristic):
         # (like we'd see in the GitHub UI that the username is not clickable)
         try:
             github_client.get_user_by_id(author.id)
-            return False # no exception, the user exists
+            return False  # no exception, the user exists
         except github.GithubException as e:
             if e.status == 404:
                 return True

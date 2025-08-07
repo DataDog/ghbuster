@@ -1,12 +1,15 @@
 import unittest
-from unittest.mock import patch, Mock
 from datetime import datetime
+from unittest.mock import patch, Mock
+
 from github import Repository
 
 from ghbuster import TargetSpec, TargetType
 from ghbuster.heuristics.repo_has_stargazzers_who_joined_the_same_day import RepoHasStargazersWhoJoinedOnTheSameDay
-from tests.test_utils.mock_utils import mock_pygithub_list
 from tests.test_utils.date_utils import random_date
+from tests.test_utils.mock_utils import mock_pygithub_list
+
+
 class TestUserHasLowCommunityActivity(unittest.TestCase):
     def setUp(self):
         self.heuristic = RepoHasStargazersWhoJoinedOnTheSameDay()
@@ -17,7 +20,7 @@ class TestUserHasLowCommunityActivity(unittest.TestCase):
         ghrepo = Mock(Repository)
         ghrepo.get_stargazers = Mock(return_value=mock_pygithub_list([
             Mock(login="user1", created_at=datetime.strptime("2025-08-07T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ")),
-            Mock(login="user2", created_at=datetime.strptime("2025-08-07T00:00:00Z",  "%Y-%m-%dT%H:%M:%SZ")),
+            Mock(login="user2", created_at=datetime.strptime("2025-08-07T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ")),
             Mock(login="user3", created_at=datetime.strptime("2025-08-07T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ")),
             Mock(login="user4", created_at=datetime.strptime("2025-08-07T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"))
         ]))
@@ -31,7 +34,7 @@ class TestUserHasLowCommunityActivity(unittest.TestCase):
         target_spec = TargetSpec(target_type=TargetType.REPOSITORY, username="user", repo_name="repo")
         ghrepo = Mock(Repository)
         num_users = 10
-        num_joined_same_day = round(RepoHasStargazersWhoJoinedOnTheSameDay.THRESHOLD_PERCENT/100*num_users)+2
+        num_joined_same_day = round(RepoHasStargazersWhoJoinedOnTheSameDay.THRESHOLD_PERCENT / 100 * num_users) + 2
         same_day_users = [
             Mock(login=f"user{i}", created_at=datetime.strptime("2025-08-07T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"))
             for i in range(num_joined_same_day)

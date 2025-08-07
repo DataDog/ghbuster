@@ -1,6 +1,7 @@
 import logging
 
 import github
+
 from .base import MetadataHeuristic, HeuristicRunResult
 from .. import TargetType, TargetSpec
 

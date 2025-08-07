@@ -1,6 +1,7 @@
 # ghbuster
 
-**ghbuster** is a tool to detect suspicious GitHub repositories and users using heuristics. It is designed to help identify potentially malicious or inauthentic accounts and repositories on GitHub.
+**ghbuster** is a tool to detect suspicious GitHub repositories and users using heuristics. It is designed to help
+identify potentially malicious or inauthentic accounts and repositories on GitHub.
 
 <p align="center">
   <img src="./screenshot.png" alt="ghbuster" width="700" />

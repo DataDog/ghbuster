@@ -7,6 +7,7 @@ logger = logging.getLogger(__name__)
 
 import networkx as nx
 
+
 # NOTE: This heuristic is unused and experimental for now.
 class Graph(MetadataHeuristic):
     MAX_ITERATIONS = 3

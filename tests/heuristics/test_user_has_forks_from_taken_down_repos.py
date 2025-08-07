@@ -1,18 +1,16 @@
 import unittest
-
 from unittest.mock import patch, Mock
+
+from github import Repository, GithubException
 
 from ghbuster import TargetSpec, TargetType
 from ghbuster.heuristics.user_has_forks_from_taken_down_repos import UserHasForksFromTakenDownRepos
-
-from github import Repository, GithubException
 from tests.test_utils.mock_utils import mock_pygithub_list
 
 
 class TestUserHasForksFromTakenDownRepos(unittest.TestCase):
     def setUp(self):
         self.heuristic = UserHasForksFromTakenDownRepos()
-
 
     @patch('ghbuster.heuristics.user_has_forks_from_taken_down_repos.github.Github')
     def test_positive(self, gh):
@@ -22,7 +20,7 @@ class TestUserHasForksFromTakenDownRepos(unittest.TestCase):
         repo1 = Mock(spec=Repository, fork=True, full_name="fork/repo1")
         repo1.parent = parent_repo1
 
-        parent_repo2 = Mock(Repository, full_name='foo/repo2') # not existing anymore
+        parent_repo2 = Mock(Repository, full_name='foo/repo2')  # not existing anymore
         repo2 = Mock(spec=Repository, fork=True, full_name="fork/repo2")
         repo2.parent = parent_repo2
         user_repos = [repo1, repo2]
@@ -31,6 +29,7 @@ class TestUserHasForksFromTakenDownRepos(unittest.TestCase):
             parent_repo1
             # note: parent_repo2 is not included here, simulating that it has been taken down
         ]
+
         def side_effect(repo_name):
             user_repos_by_name = {repo.full_name: repo for repo in user_repos}
             other_repos_by_name = {repo.full_name: repo for repo in other_repos}
@@ -40,6 +39,7 @@ class TestUserHasForksFromTakenDownRepos(unittest.TestCase):
                 return other_repos_by_name[repo_name]
             else:
                 raise GithubException(status=404)
+
         gh.get_repo.side_effect = side_effect
         gh.get_user.return_value.get_repos = Mock(return_value=mock_pygithub_list(user_repos))
         result = self.heuristic.run(gh, target_spec)
@@ -72,7 +72,8 @@ class TestUserHasForksFromTakenDownRepos(unittest.TestCase):
         user_repos_by_name = {repo.full_name: repo for repo in user_repos}
         other_repos_by_name = {repo.full_name: repo for repo in other_repos}
 
-        gh.get_repo.side_effect = lambda repo_name: user_repos_by_name[repo_name] if repo_name in user_repos_by_name else other_repos_by_name[repo_name]
+        gh.get_repo.side_effect = lambda repo_name: user_repos_by_name[
+            repo_name] if repo_name in user_repos_by_name else other_repos_by_name[repo_name]
         gh.get_user.return_value.get_repos = Mock(return_value=mock_pygithub_list(user_repos))
         result = self.heuristic.run(gh, target_spec)
         self.assertFalse(result.triggered)
