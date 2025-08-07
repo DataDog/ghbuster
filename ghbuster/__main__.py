@@ -56,10 +56,13 @@ def main(args: CliArguments):
     output = OutputFormatter().format_results(args.target_spec, results)
     print(output)
 
-if __name__ == "__main__":
+def cli_entrypoint():
     try:
         main(parse_and_validate_args(sys.argv[1:]))
     except ValueError as e:
         print(e, file=sys.stderr)
         sys.exit(1)
+
+if __name__ == "__main__":
+    cli_entrypoint()
 

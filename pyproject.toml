@@ -11,4 +11,4 @@ dependencies = [
 ]
 
 [project.scripts]
-ghbuster = "ghbuster.__main__:main"
+ghbuster = "ghbuster.__main__:cli_entrypoint"
