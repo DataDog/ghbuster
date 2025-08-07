@@ -56,7 +56,7 @@ ghbuster
 
 ## Related research
 
-- https://defcon.org/html/defcon-33/dc-33-speakers.html#content_60311
+- https://media.defcon.org/DEF%20CON%2033/DEF%20CON%2033%20presentations/Christophe%20Tafani-Dereeper%20Matt%20Muir%20-%20Weaponizing%20Trust%20Investigating%20a%20Threat%20Actor%20Targeting%20Security%20Researchers%20and%20Academics.pdf
 - https://securitylabs.datadoghq.com/articles/mut-1244-targeting-offensive-actors/
 
 ## Development
