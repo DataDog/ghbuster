@@ -37,7 +37,7 @@ ghbuster
 |:-:|:-:|:-:|
 | [repo.commits_suspicious_unlinked_emails](./ghbuster/heuristics/repo_commits_only_from_suspicious_unlinked_emails.py) | Repository commits only from suspicious unlinked emails | Detects when a repository has commits with unlinked emails that also don't match the owner's username or full name. |
 | [repo.stargazers_joined_same_day](./ghbuster/heuristics/repo_has_stargazzers_who_joined_the_same_day.py) | Repository has stargazers who joined the same day | Detects when a repository has a large proportion of its stargazers who joined GitHub on the same day, which may indicate a coordinated effort to boost the repository's popularity. |
-| [repo.starred_by_suspicious_users](./ghbuster/heuristics/repo_starred_by_suspicious_users.py) | Repository starred by suspicious users | Detects when a repository has over 8000 % of stars from suspicious users matching heuristics they may be inauthentic. |
+| [repo.starred_by_suspicious_users](./ghbuster/heuristics/repo_starred_by_suspicious_users.py) | Repository starred by suspicious users | Detects when a repository has over 80 % of stars from suspicious users matching heuristics they may be inauthentic. |
 
 
 ### GitHub user heuristics

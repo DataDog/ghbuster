@@ -20,7 +20,7 @@ class RepoStarredBySuspiciousUsers(MetadataHeuristic):
         return "Repository starred by suspicious users"
 
     def description(self) -> str:
-        return f"Detects when a repository has over {round(self.PERCENT_THRESHOLD*100)} % of stars from suspicious users matching heuristics they may be inauthentic."
+        return f"Detects when a repository has over {round(self.PERCENT_THRESHOLD)} % of stars from suspicious users matching heuristics they may be inauthentic."
 
     def target_type(self) -> TargetType:
         return TargetType.REPOSITORY
