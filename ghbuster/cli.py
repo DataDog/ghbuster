@@ -10,7 +10,7 @@ def _cli() -> ArgumentParser:
     parser = ArgumentParser(
         prog="ghbuster",
         exit_on_error=False,
-        description="TODO"
+        description="Identify inauthentic GitHub accounts and repositories",
     )
 
     parser.add_argument("target", type=str,

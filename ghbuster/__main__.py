@@ -59,11 +59,7 @@ def main(args: CliArguments):
 
 
 def cli_entrypoint():
-    try:
-        main(parse_and_validate_args(sys.argv[1:]))
-    except ValueError as e:
-        print(e, file=sys.stderr)
-        sys.exit(1)
+    main(parse_and_validate_args(sys.argv[1:]))
 
 
 if __name__ == "__main__":
