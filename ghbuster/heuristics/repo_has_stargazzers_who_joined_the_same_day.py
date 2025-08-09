@@ -24,18 +24,19 @@ class RepoHasStargazersWhoJoinedOnTheSameDay(MetadataHeuristic):
     def run(self, github_client: github.Github, target_spec: TargetSpec) -> HeuristicRunResult:
         repo = github_client.get_repo(full_name_or_id=target_spec.repo_full_name())
         all_stargazers = repo.get_stargazers()
+        num_stargazers = all_stargazers.totalCount
 
-        if all_stargazers.totalCount < self.MIN_STARGAZERS:
+        if num_stargazers < self.MIN_STARGAZERS:
             logger.debug("Repository %s has too few stargazers (%d) to analyze.", target_spec.repo_full_name(),
-                         all_stargazers.totalCount)
+                         num_stargazers)
             return HeuristicRunResult.PASSED()
 
-        if all_stargazers.totalCount > self.MAX_STARGAZERS:
+        if num_stargazers > self.MAX_STARGAZERS:
             logger.debug("Repository %s has too many stargazers (%d) to analyze, limiting to %d.",
-                         target_spec.repo_full_name(), all_stargazers.totalCount, self.MAX_STARGAZERS)
+                         target_spec.repo_full_name(), num_stargazers, self.MAX_STARGAZERS)
             all_stargazers = all_stargazers[:self.MAX_STARGAZERS]
 
-        logger.info("Analyzing the creation date of %d stargazers", all_stargazers.totalCount)
+        logger.info("Analyzing the creation date of %d stargazers", len(all_stargazers))
         stargazers_by_join_day = {}
         for stargazer in all_stargazers:
             user_joined_day = stargazer.created_at.strftime("%Y-%m-%d")
@@ -45,7 +46,7 @@ class RepoHasStargazersWhoJoinedOnTheSameDay(MetadataHeuristic):
 
         # Now compute the count for each join day
         for join_day in stargazers_by_join_day:
-            pct_joined_on_that_day = 100 * stargazers_by_join_day[join_day] / all_stargazers.totalCount
+            pct_joined_on_that_day = 100 * stargazers_by_join_day[join_day] / num_analyzed_stargazers
             if pct_joined_on_that_day >= self.THRESHOLD_PERCENT:
                 additional_details = (
                     f"Repository {target_spec.repo_full_name()} has {stargazers_by_join_day[join_day]} stargazers "
