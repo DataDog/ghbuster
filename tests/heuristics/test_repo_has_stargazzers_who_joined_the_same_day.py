@@ -50,6 +50,26 @@ class TestUserHasLowCommunityActivity(unittest.TestCase):
         self.assertTrue(result.triggered)
 
     @patch('ghbuster.heuristics.repo_has_stargazzers_who_joined_the_same_day.github.Github')
+    def test_positive_capped_number_of_stargazzers(self, gh):
+        target_spec = TargetSpec(target_type=TargetType.REPOSITORY, username="user", repo_name="repo")
+        ghrepo = Mock(Repository)
+        num_users = RepoHasStargazersWhoJoinedOnTheSameDay.MAX_STARGAZERS + 5
+        num_joined_same_day = round(RepoHasStargazersWhoJoinedOnTheSameDay.THRESHOLD_PERCENT / 100 * num_users) + 2
+        same_day_users = [
+            Mock(login=f"user{i}", created_at=datetime.strptime("2025-08-07T00:00:00Z", "%Y-%m-%dT%H:%M:%SZ"))
+            for i in range(num_joined_same_day)
+        ]
+        other_users = [
+            Mock(login=f"user{i}", created_at=random_date())
+            for i in range(num_users - num_joined_same_day)
+        ]
+        ghrepo.get_stargazers = Mock(return_value=mock_pygithub_list(same_day_users + other_users))
+        gh.get_repo.return_value = ghrepo
+
+        result = self.heuristic.run(gh, target_spec)
+        self.assertTrue(result.triggered)
+
+    @patch('ghbuster.heuristics.repo_has_stargazzers_who_joined_the_same_day.github.Github')
     def test_negative_not_enough_stargazers(self, gh):
         target_spec = TargetSpec(target_type=TargetType.REPOSITORY, username="user", repo_name="repo")
         ghrepo = Mock(Repository)
