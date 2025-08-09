@@ -36,7 +36,7 @@ class RepoHasStargazersWhoJoinedOnTheSameDay(MetadataHeuristic):
                          target_spec.repo_full_name(), num_stargazers, self.MAX_STARGAZERS)
             all_stargazers = all_stargazers[:self.MAX_STARGAZERS]
 
-        logger.info("Analyzing the creation date of %d stargazers", num_stargazers)
+        logger.info("Analyzing the creation date of %d stargazers", len(all_stargazers))
         stargazers_by_join_day = {}
         for stargazer in all_stargazers:
             user_joined_day = stargazer.created_at.strftime("%Y-%m-%d")
@@ -46,7 +46,7 @@ class RepoHasStargazersWhoJoinedOnTheSameDay(MetadataHeuristic):
 
         # Now compute the count for each join day
         for join_day in stargazers_by_join_day:
-            pct_joined_on_that_day = 100 * stargazers_by_join_day[join_day] / num_stargazers
+            pct_joined_on_that_day = 100 * stargazers_by_join_day[join_day] / num_analyzed_stargazers
             if pct_joined_on_that_day >= self.THRESHOLD_PERCENT:
                 additional_details = (
                     f"Repository {target_spec.repo_full_name()} has {stargazers_by_join_day[join_day]} stargazers "
