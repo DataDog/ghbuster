@@ -16,7 +16,7 @@ brew install astral-sh/uv/uv
 # or see https://docs.astral.sh/uv/getting-started/installation/ for other platforms
 ```
 
-You can the install ghbuster:
+You can then install ghbuster:
 
 ```bash
 uv pip install "git+https://github.com/DataDog/ghbuster.git"
