@@ -4,10 +4,10 @@ version = "0.1.0"
 description = "A tool to identify and investigate inauthentic GitHub user accounts and repositories"
 requires-python = ">=3.10"
 dependencies = [
-    "networkx[default]>=3.4.2",
-    "pygithub>=2.6.1",
+    "networkx[default]>=3.6.1",
+    "pygithub>=2.8.1",
     "pyvis>=0.3.2",
-    "requests-cache>=1.2.1",
+    "requests-cache>=1.3.0",
 ]
 
 [project.scripts]
